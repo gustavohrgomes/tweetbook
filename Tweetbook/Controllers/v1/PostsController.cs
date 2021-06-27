@@ -21,15 +21,16 @@ namespace Tweetbook.Controllers
         }
 
         [HttpGet(ApiRoutes.Posts.GetAll)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(_postService.GetPosts());
+            var posts = await _postService.GetPostsAsync();
+            return Ok(posts);
         }
 
         [HttpGet(ApiRoutes.Posts.Get)]
-        public IActionResult Get([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var post = _postService.GetPostById(id);
+            var post = await _postService.GetPostByIdAsync(id);
 
             if (post == null)
                 return NotFound();
@@ -38,12 +39,11 @@ namespace Tweetbook.Controllers
         }
 
         [HttpPost(ApiRoutes.Posts.Create)]
-        public IActionResult Create([FromBody] CreatePostRequest postRequest)
+        public async Task<IActionResult> Create([FromBody] CreatePostRequest postRequest)
         {
-            var post = new Post { Id = postRequest.Id };
+            var post = new Post { Name = postRequest.Name };
 
-            if (post.Id != Guid.Empty)
-                post.Id = Guid.NewGuid();
+            await _postService.CreatePostAsync(post);
 
             var baseURL = $"{ HttpContext.Request.Scheme }://{HttpContext.Request.Host.ToUriComponent()}";
             var locationURI = baseURL + "/" + ApiRoutes.Posts.Get.Replace("{id}", post.Id.ToString());
@@ -54,7 +54,7 @@ namespace Tweetbook.Controllers
         }
         
         [HttpPut(ApiRoutes.Posts.Update)]
-        public IActionResult Update([FromRoute] Guid id, [FromBody] UpdatePostRequest postRequest)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdatePostRequest postRequest)
         {
             var post = new Post
             {
@@ -62,7 +62,7 @@ namespace Tweetbook.Controllers
                 Name = postRequest.Name
             };
 
-            var updated = _postService.UpdatePost(post);
+            var updated = await _postService.UpdatePostAsync(post);
 
             if (updated)
                 return Ok(post);
@@ -71,9 +71,9 @@ namespace Tweetbook.Controllers
         }
 
         [HttpDelete(ApiRoutes.Posts.Delete)]
-        public IActionResult Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var deletedPost = _postService.DeletePost(id);
+            var deletedPost = await _postService.DeletePostAsync(id);
 
             if (deletedPost)
                 return NoContent();
