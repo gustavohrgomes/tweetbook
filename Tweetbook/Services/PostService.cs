@@ -18,6 +18,7 @@ namespace Tweetbook.Services
                 _posts.Add(new Post { Id = Guid.NewGuid(), Name = $"Post Number {i}" });
             }
         }
+
         public List<Post> GetPosts()
         {
             return _posts;
@@ -38,6 +39,17 @@ namespace Tweetbook.Services
             var index = _posts.FindIndex(x => x.Id == postToUpdate.Id);
             _posts[index] = postToUpdate;
 
+            return true;
+        }
+
+        public bool DeletePost(Guid id)
+        {
+            var post = GetPostById(id);
+
+            if (post == null)
+                return false;
+
+            _posts.Remove(post);
             return true;
         }
     }
