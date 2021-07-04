@@ -65,5 +65,10 @@ namespace Tweetbook.Services
 
             return response.IsSuccess;
         }
+
+        public Task<bool> UserOwnsPostAsync(Guid id, string userid)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
