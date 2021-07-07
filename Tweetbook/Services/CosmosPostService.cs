@@ -8,7 +8,7 @@ using Tweetbook.Domain;
 
 namespace Tweetbook.Services
 {
-    public class CosmosPostService : IPostService
+    public class CosmosPostService
     {
         private readonly ICosmosStore<CosmosPostDto> _cosmosStore;
 
