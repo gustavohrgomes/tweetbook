@@ -31,7 +31,7 @@ namespace Tweetbook.Controllers
             {
                 Id = post.Id,
                 Name = post.Name,
-                Tags = post.Tags.Select(postTag => postTag.TagName)
+                Tags = post.Tags
             }));
         }
 
@@ -47,7 +47,7 @@ namespace Tweetbook.Controllers
             {
                 Id = post.Id,
                 Name = post.Name,
-                Tags = post.Tags.Select(postTag => postTag.TagName)
+                Tags = post.Tags
             });
         }
 
@@ -72,7 +72,7 @@ namespace Tweetbook.Controllers
             {
                 Id = post.Id,
                 Name = post.Name,
-                Tags = post.Tags.Select(postTag => postTag.TagName)
+                Tags = post.Tags
             };
 
             return Created(locationURI, response);
@@ -100,7 +100,7 @@ namespace Tweetbook.Controllers
                 {
                     Id = post.Id,
                     Name = post.Name,
-                    Tags = post.Tags.Select(postTag => postTag.TagName)
+                    Tags = post.Tags
                 });
             }
 

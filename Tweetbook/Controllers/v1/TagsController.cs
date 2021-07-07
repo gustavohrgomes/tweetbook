@@ -20,6 +20,7 @@ namespace Tweetbook.Controllers.v1
         }
 
         [HttpGet(ApiRoutes.Tags.GetAll)]
+        [Authorize(policy: "TagViewer")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _postService.GetAllTagsAsync());

@@ -52,6 +52,7 @@ namespace Tweetbook
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseMvc();
         }

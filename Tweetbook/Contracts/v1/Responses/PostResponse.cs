@@ -10,6 +10,6 @@ namespace Tweetbook.Contracts.v1.Responses
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<PostTag> Tags { get; set; }
     }
 }
